@@ -115,8 +115,14 @@ include('connection.php');
 //echo $id;
 if(isset($_POST['submit']))
 {
-  $donate=$_POST['donate-item'];
-  $desc=$_POST['msg-body'];
+  $args = array("$id",'"donate","$desc")         //SQL INJECTION PROTECTED
+  $key =  array_search($_POST['id'],$args));
+  $id = $args[$key];
+  $key =  array_search($_POST['donate'],$args));
+  $donate = $args[$key];
+  $key =  array_search($_POST['desc'],$args));
+  $desc = $args[$key];
+  
   $sqle=mysqli_query($conn,"insert into ngo_requirements(ngo_id,req,req_descr)values('$id','$donate','$desc')");
   if($sqle)
   {
